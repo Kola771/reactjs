@@ -5,9 +5,10 @@ function Navbar() {
     return (
         <div className='bg-white shadow-lg'>
 
-            <nav class="flex justify-between px-20 py-6 container mx-auto items-center ">
+            <nav class="flex justify-between px-4 py-6 container mx-auto items-center ">
                 {/* <h1 class="text-3xl text-gray-800 font-bold"> <span className='font-bold text-red-700'>Zéléka</span><span className='text-red-600'>-Zéléka</span></h1> */}
-                <h2 class="font-bold text-3xl"><span class="text-gray-600 px-2 rounded-md">Zéléka</span>-<span class="bg-[#f84525] text-white px-2 rounded-md">Zéléka</span></h2>
+                <h2 class="font-bold text-3xl">
+                    <span class="text-gray-600 rounded-md">Zéléka-</span><span class="bg-[#f84525] text-white px-2 rounded-md">Zéléka</span></h2>
                 <div class="flex items-center gap-4">
                     <div class="flex items-center justify-center list-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

@@ -34,54 +34,58 @@ function Generate() {
     { value: "Émotionnel et touchant", label: "Émotionnel et touchant" },
     { value: "Pratique et concret", label: "Pratique et concret" },
     { value: "Poétique et descriptif", label: "Poétique et descriptif" },
-    { value:  "Provocant et controversé", label:  "Provocant et controversé"},
-    { value:  "Technique et détaillé", label:  "Technique et détaillé" },
-    { value:  "Narratif et captivant", label:  "Narratif et captivant" },
-    { value: "Visuel et esthétique", label: "Visuel et esthétique"}
+    { value: "Provocant et controversé", label: "Provocant et controversé" },
+    { value: "Technique et détaillé", label: "Technique et détaillé" },
+    { value: "Narratif et captivant", label: "Narratif et captivant" },
+    { value: "Visuel et esthétique", label: "Visuel et esthétique" }
   ]
 
   const ImageStyle = [
-    "Réaliste et époustouflant",
-    "Artistique et créatif",
-    "Minimaliste et épuré",
-    "Surréaliste et imaginatif",
-    "Vintage et nostalgique",
-    "Futuriste et avant-gardiste",
-    "Abstrait et conceptuel",
-    "Naturel et organique",
-    "Cartoon et illustré",
-    "Sombre et mystérieux"
+    { value: "Réaliste et époustouflant", label: "Réaliste et époustouflant" },
+    { value: "Artistique et créatif", label: "Artistique et créatif" },
+    { value: "Minimaliste et épuré", label: "Minimaliste et épuré" },
+    { value: "Surréaliste et imaginatif", label: "Surréaliste et imaginatif" },
+    { value: "Vintage et nostalgique", label: "Vintage et nostalgique" },
+    { value: "Futuriste et avant-gardiste", label: "Futuriste et avant-gardiste" },
+    { value: "Naturel et organique", label: "Naturel et organique" },
+    { value: "Cartoon et illustré", label: "Cartoon et illustré" },
+    { value: "Sombre et mystérieux", label: "Sombre et mystérieux" },
   ]
 
   const RequestLanguage = [
-    "Request language 1",
-    "Request language 2",
-    "Request language 3",
-    "Request language 4",
-    "Request language 5",
-    "Request language 6"
+    { value: "Request language 1", label: "Request language 1" },
+    { value: "Request language 2", label: "Request language 2" },
+    { value: "Request language 3", label: "Request language 3" },
+    { value: "Request language 4", label: "Request language 4" },
+    { value: "Request language 5", label: "Request language 5" },
+    { value: "Request language 6", label: "Request language 6" },
   ]
 
   const GeneratedPostLanguage = [
-    "Generated Post language 1",
-    "Generated Post language 2",
-    "Generated Post language 3",
-    "Generated Post language 4",
-    "Generated Post language 5",
-    "Generated Post language 6"
+    { value: "Generated Post language 1", label: "Generated Post language 1" },
+    { value: "Generated Post language 2", label: "Generated Post language 2" },
+    { value: "Generated Post language 3", label: "Generated Post language 3" },
+    { value: "Generated Post language 4", label: "Generated Post language 4" },
+    { value: "Generated Post language 5", label: "Generated Post language 5" },
+    { value: "Generated Post language 6", label: "Generated Post language 6" },
   ]
 
   const [formData, setFormData] = useState({
+    RequestLanguage: "",
+    GeneratedPostLanguage: "",
+    Gender: "",
     ContentTopic: "",
     ConstentStyle: "",
     ImageStyle: "",
-    RequestLanguage: "",
-    GeneratedPostLanguage: "",
-    NumberOfCaracter: "", // Ajout du champ "type"
     Content: "",
+    NumberOfCaracter: "",
+
+    // Ajout du champ "type"
+
     // ContentTopic: "",
   });
 
+  const [formGender, setFormGender] = useState("");
   const [formContentTopic] = useState("");
   const [formConstentStyle] = useState("");
   const [formImageStyle] = useState("");
@@ -93,7 +97,7 @@ function Generate() {
 
   }, []);
 
-
+  const [selectedOption, setSelectedOption] = useState(null);
   const handleInputChange = (e: {
     target: { name: string; value: string };
   }) => {
@@ -101,32 +105,17 @@ function Generate() {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = async (e: { preventDefault: () => void }) => {
+    console.log("yes");
+    console.log(selectedOption);
+
+    console.log(formData);
+
     e.preventDefault();
     try {
-      const response = await client.post("/api/auth/register", formData, config);
-      if (response.data.success) {
-        Swal.fire({
-          title: "Inscription réussie",
-          text: "Vos identifiants sont correcte",
-          icon: "success",
-          showConfirmButton: false,
-        });
-        setTimeout(() => {
-          window.location.href = '/tapeCode'
-        }, 2000)
 
-      } else {
-        Swal.fire({
-          title: "Erreur",
-          text: response.data.error,
-          showConfirmButton: true,
-          confirmButtonColor: "red",
-        });
-      }
     } catch (error) {
-      console.error("Erreur lors de l'enregistrement :", error);
+
     }
 
   };
@@ -138,6 +127,25 @@ function Generate() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+
+
+  const [userChoice, setUserChoice] = useState("");
+
+
+  const handleRadioChange = (e: {
+    target: { name: string; value: string };
+  }) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSelectChange = (selectedOption, { name }) => {
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: selectedOption.value,
+    }));
   };
 
   return (
@@ -159,100 +167,142 @@ function Generate() {
                 </button>
               </div> */}
             </div>
-            <div className="main flex border rounded-full overflow-hidden m-4 select-none">
-              <div className="title py-3 my-auto px-5 bg-[#f84525] text-white text-sm font-semibold mr-3">Gender</div>
-              <label className="flex items-center justify-center radio p-2 cursor-pointer">
-                <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="sfg" />
-                <div className="title px-2">Linkedin</div>
-              </label>
+            <form onSubmit={handleSubmit}>
+              <div className="main flex border rounded-full overflow-hidden m-4 select-none">
+                <div className="title py-3 my-auto px-5 bg-[#f84525] text-white text-sm font-semibold mr-3">Gender</div>
+                <label className="flex items-center justify-center radio p-2 cursor-pointer">
+                  <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="Gender"
+                    value="Linkedin"
+                    checked={formData.Gender === "Linkedin"}
+                    onChange={handleRadioChange} />
+                  <div className="title px-2">Linkedin</div>
+                </label>
 
-              <label className="flex items-center justify-center radio p-2 cursor-pointer">
-                <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="sfg" />
-                <div className="title px-2">Twitter</div>
-              </label>
-              <label className="flex items-center justify-center radio p-2 cursor-pointer">
-                <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="sfg" />
-                <div className="title px-2">Instagram</div>
-              </label>
-              <label className="flex items-center justify-center radio p-2 cursor-pointer">
-                <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="sfg" />
-                <div className="title px-2">Facebook</div>
-              </label>
-              <label className="flex items-center justify-center radio p-2 cursor-pointer">
-                <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="sfg" />
-                <div className="title px-2">Blog</div>
-              </label>
-            </div>
+                <label className="flex items-center justify-center radio p-2 cursor-pointer">
+                  <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="Gender"
+                    value="Twitter"
+                    checked={formData.Gender === "Twitter"}
+                    onChange={handleRadioChange} />
+                  <div className="title px-2">Twitter</div>
+                </label>
+                <label className="flex items-center justify-center radio p-2 cursor-pointer">
+                  <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="Gender"
+                    value="Instagram"
+                    checked={formData.Gender === "Instagram"}
+                    onChange={handleRadioChange} />
+                  <div className="title px-2">Instagram</div>
+                </label>
+                <label className="flex items-center justify-center radio p-2 cursor-pointer">
+                  <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="Gender"
+                    value="Facebook"
+                    checked={formData.Gender === "Facebook"}
+                    onChange={handleRadioChange} />
+                  <div className="title px-2">Facebook</div>
+                </label>
+                <label className="flex items-center justify-center radio p-2 cursor-pointer">
+                  <input className="my-auto transform scale-125 accent-[#f84525]" type="radio" name="Gender"
+                    value="Blog"
+                    checked={formData.Gender === "Blog"}
+                    onChange={handleRadioChange} />
+                  <div className="title px-2">Blog</div>
+                </label>
+              </div>
 
-            <div className="mt-2 m-4">
-              <p className="text-xs font-semibold text-gray-700 uppercase"> Content topic </p>
+              <div className="mt-2 m-4">
+                <p className="text-xs font-semibold text-gray-700 uppercase"> Content topic </p>
 
-              <input type="email" x-model="email" className="mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" placeholder="content topic" />
-            </div>
+                <input type="text"
+                  required
+                  value={formData.ContentTopic}
+                  onChange={handleInputChange}
+                  name="ContentTopic"
+                  required
+                  className="mt-2 p-2 border border-gray-300 text-xl rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" placeholder="content topic" />
+              </div>
 
-            <div className="mt-2 m-4">
-              <div>
-                <p className="text-xs font-semibold text-gray-700 uppercase"> Content style </p>
-                <Select options={ConstentStyle}
-                className="mt-2 p-2 border border-gray-300 text-gray-600  rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
-                  
+              <div className="mt-2 m-4">
+                <div>
+                  <p className="text-xs font-semibold text-gray-700 uppercase"> Content style </p>
+                  <Select
+                    required
+                    className="mt-2 p-2 border border-gray-300 text-xl text-gray-600  rounded-md w-full focus:outline-none focus:ring focus:border-blue-500"
+                    name="ConstentStyle"
+                    value={{ value: formData.ConstentStyle, label: formData.ConstentStyle }}
+                    onChange={(selectedOption) => handleSelectChange(selectedOption, { name: 'ConstentStyle' })}
+                    options={ConstentStyle}
+                  />
+                  {/* <Select
+                    name="ConstentStyle"
+                    value={formData.ConstentStyle}
+                    options={ConstentStyle}
+                    required
+                    onChange={(choice) => handleSelectedChoice(choice)}
+                    className="mt-2 p-2 border border-gray-300 text-xl text-gray-600  rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
+                  </Select> */}
+                </div>
+              </div>
+
+              <div className="mt-2 m-4">
+                <p className="text-xs font-semibold text-gray-700 uppercase"> Image style </p>
+                <Select options={ImageStyle} required
+                  value={{ value: formData.ImageStyle, label: formData.ImageStyle }}
+                  onChange={(selectedOption) => handleSelectChange(selectedOption, { name: 'ImageStyle' })}
+                  name="ImageStyle"
+                  className="mt-2 p-2 border border-gray-300 text-xl text-gray-600  rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
                 </Select>
+
+              </div>
+
+              <div className="mt-2 m-4">
+                <p className="text-xs font-semibold text-gray-700 uppercase"> Content </p>
+
+                <textarea
+                  required
+                  value={formData.Content}
+                  onChange={handleInputChange}
+                  name="Content"
+                  x-model="email" className="mt-2 p-2 border text-xl border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" placeholder="content" />
+              </div>
+
+
+              <div className="mt-2 m-4">
+                <p className="text-xs font-semibold text-gray-700 uppercase"> Nombre de caractere </p>
+
+                <input
+                  required
+                  onChange={handleInputChange}
+                  name="NumberOfCaracter"
+                  type="number"
+                  x-model="email" className="mt-2 p-2 border text-xl border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" placeholder="content topic" />
+              </div>
+
+              <div className="mt-2 m-4">
+                <p className="text-xs font-semibold text-gray-700 uppercase"> Request language </p>
+                <Select
+                  name="RequestLanguage"
+                  options={RequestLanguage}
+                  value={{ value: formData.RequestLanguage, label: formData.RequestLanguage }}
+                  onChange={(selectedOption) => handleSelectChange(selectedOption, { name: 'RequestLanguage' })}
+                  className="mt-2 p-2 border border-gray-300 text-xl text-gray-600  rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
+                </Select>
+
+
+
+              </div>
+
+              <div className="mt-2 m-4">
+                <p className="text-xs font-semibold text-gray-700 uppercase"> Generated posts language </p>
+                <Select options={GeneratedPostLanguage} name="GeneratedPostLanguage" 
+                  value={{ value: formData.GeneratedPostLanguage, label: formData.GeneratedPostLanguage }}
+                  onChange={(selectedOption) => handleSelectChange(selectedOption, { name: 'GeneratedPostLanguage' })}
+                  className="mt-2 p-2 border border-gray-300 text-xl text-gray-600  rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
+                </Select>
+
               </div>
 
 
 
-            </div>
-            <div className="mt-2 m-4">
-              <p className="text-xs font-semibold text-gray-700 uppercase"> Image style </p>
-              <select className="mt-2 p-2 border text-gray-600  border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
-                <option>Style 1</option>
-                <option>Style 2</option>
-                <option>Style 3</option>
-                <option>Style 4</option>
-                <option>Style 5</option>
-              </select>
-
-            </div>
-
-            <div className="mt-2 m-4">
-              <p className="text-xs font-semibold text-gray-700 uppercase"> Content </p>
-
-              <textarea x-model="email" className="mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" placeholder="content" />
-            </div>
-
-
-            <div className="mt-2 m-4">
-              <p className="text-xs font-semibold text-gray-700 uppercase"> Nombre de caractere </p>
-
-              <input type="number" x-model="email" className="mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" placeholder="content topic" />
-            </div>
-
-            <div className="mt-2 m-4">
-              <p className="text-xs font-semibold text-gray-700 uppercase"> Request language </p>
-              <select className="mt-2 p-2 border text-gray-600  border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
-                <option>Request language 1</option>
-                <option>Request language 2</option>
-                <option>Request language 3</option>
-                <option>Request language 4</option>
-                <option>Request language 5</option>
-              </select>
-
-            </div>
-
-            <div className="mt-2 m-4">
-              <p className="text-xs font-semibold text-gray-700 uppercase"> Generated posts language </p>
-              <select className="mt-2 p-2 border text-gray-600  border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
-                <option>Generated posts language 1</option>
-                <option>Generated posts language 2</option>
-                <option>Generated posts language 3</option>
-                <option>Generated posts language 4</option>
-                <option>Generated posts language 5</option>
-              </select>
-
-            </div>
-
-
-            {/* <div>
+              {/* <div>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 					<input type="text" placeholder="First name" className="border p-2 rounded w-full">
 					<input type="text" placeholder="Last name" className="border p-2 rounded w-full">
@@ -278,23 +328,24 @@ function Generate() {
                     Toggle Theme
                 </button>
 			</div> */}
-            <div className="mx-4">
+              <div className="mx-4">
 
-              {/* <button
+                {/* <button
                 className="middle none center mr-4 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 data-ripple-light="true"
               >
                 Sauvegarder les données
               </button> */}
 
-              <button
-                className="middle none center mr-4 rounded-lg bg-[#f84525]  py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                data-ripple-light="true"
-              >
-                Sauvegarder les données
-              </button>
+                <button type="submit"
+                  className="middle none center mr-4 rounded-lg bg-[#f84525]  py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  data-ripple-light="true"
+                >
+                  Sauvegarder les données
+                </button>
 
-            </div>
+              </div>
+            </form>
           </div>
 
         </div></div>
