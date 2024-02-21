@@ -6,6 +6,21 @@
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
+::-webkit-scrollbar {
+  background-color: #fff;
+  width: 8px;
+}
+
+/* Couleur de la poignée (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #4286c9;
+  border-radius: 0.2em;
+}
+
+/* Couleur de la poignée lorsqu'elle est survolée */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #333;
+}
 
 *,
 ::before,
