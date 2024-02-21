@@ -8,10 +8,9 @@ function Posts() {
     const [publication, setPub] = useState('');
     const [source, setSource] = useState('');
     useEffect(() => {
-        if (data.length > 0) {
-            setDonnees(data[0]);
-            setPub(data[0].post);
-        }
+        // if (data.length > 0) {
+        //     setPub(data[0].post);
+        // }
     }, []); // Utilisez useEffect pour effectuer l'appel à setPub une fois au montage du composant
 
 
@@ -24,6 +23,14 @@ function Posts() {
     // Fonction pour récupérer la source d'une image
     const showImage = (imag) => {
         setSource(imag);
+        setPub(data[0].post);
+        setDonnees({
+            "post": data[0].post,
+            "urlImage": [
+                imag
+            ],
+            "number_of_characters": data[0].number_of_characters
+        });
         document.getElementById("modal").classList.remove("hidden");
         document.getElementById("menu").classList.remove("hidden");
     };
