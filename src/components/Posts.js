@@ -44,7 +44,7 @@ function Posts() {
             if (item.urlImages && Array.isArray(item.urlImages)) { // Vérifiez si urlImage est un tableau
                 for (let y = 0; y < item.urlImages.length; y++) {
                     let imag = "index-" + y;
-                    images.push(<img key={y} class="w-[49%] rounded" id={imag} onClick={() => showImage(item.urlImages[y])} src={item.urlImages[y]} alt='image générée' />);
+                    images.push(<img key={y} class="w-[49%] h-[270px] cursor-pointer rounded" id={imag} onClick={() => showImage(item.urlImages[y])} src={item.urlImages[y]} alt='image générée' />);
                 }
             }
 
