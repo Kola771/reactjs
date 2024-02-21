@@ -11,7 +11,7 @@ function Navbar() {
           <Link to="/">Accueil</Link>
         </li>
         <li>
-          <Link to="/post">Publication</Link>
+          <Link to="/posts">Publication</Link>
         </li>
         <li>
           <Link to="/savepost">Sauvegarde des publications</Link>
