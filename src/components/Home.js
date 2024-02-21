@@ -1,8 +1,9 @@
 // components/Home.js
 import React from 'react';
-
+import Navbar from './Navbar.js'
+import Generate from './Generate.tsx'
 function Home() {
-  return (<h2>Accueil</h2>);
+  return (<><Navbar/><Generate/></>);
 }
 
 export default Home;

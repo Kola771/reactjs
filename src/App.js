@@ -4,13 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Posts from './components/Posts';
 import SavePost from './components/SavePost';
-import Navbar from './components/Navbar';
-
+import './input.css'
 function App() {
   return (
     <Router>
     <div>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/posts" element={<Posts />} />
