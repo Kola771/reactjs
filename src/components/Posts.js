@@ -44,7 +44,7 @@ function Posts() {
             if (item.urlImages && Array.isArray(item.urlImages)) { // Vérifiez si urlImage est un tableau
                 for (let y = 0; y < item.urlImages.length; y++) {
                     let imag = "index-" + y;
-                    images.push(<img key={y} class="w-[49%] h-[270px] cursor-pointer rounded" id={imag} onClick={() => showImage(item.urlImages[y])} src={item.urlImages[y]} alt='image générée' />);
+                    images.push(<img key={y} class="w-[49%] border-gray-400 border-[1px] h-[270px] cursor-pointer rounded" id={imag} onClick={() => showImage(item.urlImages[y])} src={item.urlImages[y]} alt='image générée' />);
                 }
             }
 
@@ -60,10 +60,10 @@ function Posts() {
     }
 
     return (
-        <div class="bg-gray-300 h-screen">
-            <div class="w-[70%] m-auto pt-10">
-                <h2 class="font-bold text-sky-600 text-2xl mb-2">Publication</h2>
-                <div class="flex flex-col gap-y-2">
+        <div class="bg-gray-100 transition-colors duration-300 h-screen pt-10">
+            <div class="bg-white shadow rounded-lg w-[70%] m-auto py-4">
+                <h2 class="font-bold text-[#f84525] text-2xl mb-2 px-4">Publication</h2>
+                <div class="flex flex-col gap-y-2 px-4">
                     {items}
                 </div>
             </div>
@@ -81,11 +81,11 @@ function Posts() {
                             <div class="bg-white rounded">
                                 <div class="flex flex-col gap-y-4 py-4 px-12 max-h-[700px] overflow-y-auto scrollbar-w-4 scrollbar-track-white scrollbar-thumb-blue-500 scrollbar-thumb-rounded-full scrollbar-thumb-hover-blue-900">
                                     <p class="text-[14px]">{publication}</p>
-                                    <img src={source} alt="couverture"
+                                    <img src={source} alt="image"
                                         class="object-cover w-full h-[380px] rounded" />
                                 </div>
                                 <div class="flex justify-end p-3 border-gray-400 border-t-[1px]">
-                                    <button class="bg-sky-600 text-white p-2 rounded" onClick={() => saveData()}>Sauvegarder</button>
+                                    <button class="bg-[#f84525] text-white p-2 rounded" onClick={() => saveData()}>Sauvegarder</button>
                                 </div>
                             </div>
                         </div>

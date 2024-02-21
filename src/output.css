@@ -13,7 +13,7 @@
 
 /* Couleur de la poignée (thumb) */
 ::-webkit-scrollbar-thumb {
-  background-color: #4286c9;
+  background-color: #f84525;
   border-radius: 0.2em;
 }
 

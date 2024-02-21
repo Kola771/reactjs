@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Posts from './components/Posts';
 import SavePost from './components/SavePost';
-import Navbar from './components/Navbar';
-
+import Navbar from './components/Navbar.js'
+import './input.css'
+import './output.css'
 function App() {
   return (
     <Router>
