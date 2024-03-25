@@ -1,8 +1,8 @@
 // components/Home.js
 import React from 'react';
-
+import Generate from './Generate.tsx'
 function Home() {
-  return (<h2>Accueil</h2>);
+  return (<Generate/>);
 }
 
 export default Home;
