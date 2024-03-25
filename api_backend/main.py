@@ -22,7 +22,10 @@ async def root():
 
 # Définir la clé API OpenAI à partir de la variable d'environnement
 # openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = "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"
+
+# openai.api_key = "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"
+
+openai.api_key = "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"
 
 @app.post("/generate_content")
 async def generate_content(data: dict):
